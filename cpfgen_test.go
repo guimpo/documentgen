@@ -6,8 +6,7 @@ import (
 	"testing"
 )
 
-// TestHelloName calls greetings.Hello with a name, checking
-// for a valid return value.
+// Must return 11 characters
 func TestCPF(t *testing.T) {
 	want := regexp.MustCompile(`\d{11}`)
 	cpf, err := CPF(1)
