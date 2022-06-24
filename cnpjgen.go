@@ -11,26 +11,26 @@ func CNPJ(seed int64) (string, error) {
 
 	const CNPJ_ST_DIGIT_INDEX = 1
 	const CNPJ_ND_DIGIT_INDEX = 0
-	CNPJ_MULTIPLICATION_FACTOR_1 := [14]int32{2, 3, 4, 5, 6, 7, 8, 9, 2, 3, 4, 5}
-	CNPJ_MULTIPLICATION_FACTOR_2 := [14]int32{2, 3, 4, 5, 6, 7, 8, 9, 2, 3, 4, 5, 6}
+	CNPJ_MULTIPLICATION_FACTOR_1 := [14]int{2, 3, 4, 5, 6, 7, 8, 9, 2, 3, 4, 5}
+	CNPJ_MULTIPLICATION_FACTOR_2 := [14]int{2, 3, 4, 5, 6, 7, 8, 9, 2, 3, 4, 5, 6}
 
-	generatedCNPJ := [14]int32{-1, -1, 1, 0, 0, 0, -1, -1, -1, -1, -1, -1, -1, -1}
-	var sum int32 = 0
+	generatedCNPJ := [14]int{-1, -1, 1, 0, 0, 0, -1, -1, -1, -1, -1, -1, -1, -1}
+	sum := 0
 
 	for i := 2; i < 14; i++ {
-		var num int32 = 0
+		num := 0
 		if i <= 5 {
 			num = generatedCNPJ[i]
 		} else {
-			num = rand.Int31n(10)
+			num = rand.Intn(10)
 			generatedCNPJ[i] = num
 		}
 		sum += num * CNPJ_MULTIPLICATION_FACTOR_1[i-2]
 	}
 
-	var reminder = sum % 11
-	var result = 11 - reminder
-	var digit int32 = 0
+	reminder := sum % 11
+	result := 11 - reminder
+	digit := 0
 
 	if result < 10 {
 		digit = result
